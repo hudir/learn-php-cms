@@ -86,19 +86,3 @@ function getNewInsertId()
     global $connection;
     return mysqli_insert_id($connection);
 }
-
-# need work
-class Column
-{
-
-}
-
-class Table extends Column
-{
-    function __construct()
-    {
-        echo $this->moveWheels();
-    }
-}
-
-
