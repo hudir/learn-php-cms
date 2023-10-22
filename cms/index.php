@@ -14,6 +14,7 @@ include 'includes/db_class.php';
         <div class="col-md-8">
             <?php
 
+            global $post_pagination;
             $post_pagination->run();
 
             echo $post_pagination->current_page_template;
@@ -28,9 +29,12 @@ include 'includes/db_class.php';
         ?>
     </div>
     <!-- /.row -->
-    <hr>
+
 
     <?php
+
+    echo $post_pagination->current_buttons_template;
+
     include 'includes/footer.php'
     ?>
 
