@@ -4,7 +4,6 @@ include 'includes/db.php';
 include 'includes/header.php';
 include 'includes/navigation.php';
 include 'includes/db_class.php';
-
 ?>
 
 <!-- Page Content -->
@@ -18,8 +17,6 @@ include 'includes/db_class.php';
             $post_pagination->run();
 
             echo $post_pagination->current_page_template;
-;
-
 
             ?>
         </div>
@@ -30,9 +27,7 @@ include 'includes/db_class.php';
     </div>
     <!-- /.row -->
 
-
     <?php
-
     echo $post_pagination->current_buttons_template;
 
     include 'includes/footer.php'

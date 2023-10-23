@@ -11,3 +11,12 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.current_page {
+    background-color: lightblue !important;
+    color: white;
+}
+
+.current_page:hover {
+    color: white;
+}

@@ -105,9 +105,6 @@ class DB
     }
 }
 
-
-
-
 class Pagination extends DB
 {
     var $max_num_pro_page = null;
@@ -120,6 +117,8 @@ class Pagination extends DB
 
     var $table_name = null;
 
+    var $main_url = null;
+
     var $data = null;
 
     var $current_page = null;
@@ -128,13 +127,16 @@ class Pagination extends DB
 
     var $current_page_template = null;
     var $current_buttons_template = null;
-    
-    function run() {
+
+    function run()
+    {
         $this->get_current_page();
         $this->gen_template();
+        $this->gen_buttons();
     }
-    
-    function init($max_num_pro_page = 3,$table_name = 'posts', $main_url = 'index.php', $page_name='page', $start_page = 0) {
+
+    function init($max_num_pro_page = 3, $table_name = 'posts', $main_url = 'index.php', $page_name = 'page', $start_page = 0)
+    {
         $this->table_name = $table_name;
         $this->get_count($table_name);
         $this->get_all_data($table_name);
@@ -142,21 +144,23 @@ class Pagination extends DB
         $this->set_page_nums();
         $this->set_page_name($page_name);
         $this->current_page = $start_page;
-        $this->main($main_url);
+        $this->main_url = $main_url;
+        $this->main();
         $this->gen_template();
     }
-    
-    function get_current_page() {
 
-        if(isset($_GET[$this->page_name])) {
+    function get_current_page()
+    {
+        if (isset($_GET[$this->page_name])) {
             $current_page_name = (int)$_GET[$this->page_name];
         } else {
             $current_page_name = 0;
         }
 
-        $this->current_page = (int)substr($current_page_name, -1);
+        $this->current_page = $current_page_name;
         return $this->current_page;
     }
+
     function get_all_data($table)
     {
         if ($table) {
@@ -186,22 +190,28 @@ class Pagination extends DB
         $this->page_name = $name;
     }
 
-    function main($main_url)
+    function main()
     {
         $buttons = "<ul class='pager'>";
+        $main_url = $this->main_url;
 
         $page_data = [];
 
         for ($i = 0; $i < $this->page_num; $i++) {
-            $cu_page_num = $i+1;
-            $buttons .= "<li><a class='btn' href='{$main_url}?{$this->page_name}={$i}' >{$cu_page_num}</a></li>";
+            $cu_page_num = $i + 1;
+            $is_current_page = $this->current_page === $i;
+            if ($is_current_page) {
+                $buttons .= "<li><a class='btn btn-primary' href='{$main_url}?{$this->page_name}={$i}' >{$cu_page_num}</a></li>";
+            } else {
+                $buttons .= "<li><a class='btn' href='{$main_url}?{$this->page_name}={$i}' >{$cu_page_num}</a></li>";
+            }
 
-            $current_page_data = array();
+            $current_page_data = [];
             $start = $i * $this->max_num_pro_page;
-            $end = ($i+1) * $this->max_num_pro_page -1;
+            $end = ($i + 1) * $this->max_num_pro_page - 1;
 
             for ($y = $start; $y < $end; $y++) {
-                if(!array_key_exists($y, $this->data)) {
+                if (!array_key_exists($y, $this->data)) {
                     break;
                 }
                 $current_page_data[] = $this->data[$y];
@@ -213,13 +223,14 @@ class Pagination extends DB
 
         $buttons .= "</ul>";
 
-        $processed_data = array('page_data'=>$page_data, 'buttons'=> $buttons);
+        $processed_data = ['page_data' => $page_data, 'buttons' => $buttons];
         $this->processed_data = $processed_data;
         $this->current_buttons_template = $buttons;
     }
 
-    function gen_template() {
-        $temp='';
+    function gen_template()
+    {
+        $temp = '';
 
         $current_page = $this->current_page;
         $current_page_name = $this->page_name . $current_page;
@@ -259,12 +270,26 @@ class Pagination extends DB
         }
         $this->current_page_template = $temp;
     }
+
+    function gen_buttons()
+    {
+        $buttons = "<ul class='pager'>";
+        $main_url = $this->main_url;
+
+        for ($i = 0; $i < $this->page_num; $i++) {
+            $cu_page_num = $i + 1;
+
+            if ($this->current_page == $i) {
+                $buttons .= "<li><a class='btn current_page' href='{$main_url}?{$this->page_name}={$i}' ><b>{$cu_page_num}</b></a></li>";
+            } else {
+                $buttons .= "<li><a class='btn' href='{$main_url}?{$this->page_name}={$i}' >{$cu_page_num}</a></li>";
+            }}
+        $buttons .= "</ul>";
+        $this->current_buttons_template = $buttons;
+    }
 }
 
 global $connection;
 $post_pagination = new Pagination();
 $post_pagination->setConnection($connection);
 $post_pagination->init(5);
-
-//echo '<br>';
-//print_r( $post_pagination->processed_data);
