@@ -107,23 +107,23 @@ class DB
 
 class Pagination extends DB
 {
-    var $max_num_pro_page = null;
+    private $max_num_pro_page = null;
 
-    var $sum_of_all_item = null;
+    private $sum_of_all_item = null;
 
-    var $page_num = null;
+    private $page_num = null;
 
-    var $page_name = null;
+    private $page_name = null;
 
-    var $table_name = null;
+    private $table_name = null;
 
-    var $main_url = null;
+    private $main_url = null;
 
-    var $data = null;
+    private $data = null;
 
-    var $current_page = null;
+    private $current_page = null;
 
-    var $processed_data = null;
+    private $processed_data = null;
 
     var $current_page_template = null;
     var $current_buttons_template = null;
@@ -135,8 +135,9 @@ class Pagination extends DB
         $this->gen_buttons();
     }
 
-    function init($max_num_pro_page = 3, $table_name = 'posts', $main_url = 'index.php', $page_name = 'page', $start_page = 0)
+    function __construct($db, $max_num_pro_page = 3, $table_name = 'posts', $main_url = 'index.php', $page_name = 'page', $start_page = 0)
     {
+        $this->setConnection($db);
         $this->table_name = $table_name;
         $this->get_count($table_name);
         $this->get_all_data($table_name);
@@ -149,7 +150,7 @@ class Pagination extends DB
         $this->gen_template();
     }
 
-    function get_current_page()
+    private function get_current_page()
     {
         if (isset($_GET[$this->page_name])) {
             $current_page_name = (int)$_GET[$this->page_name];
@@ -161,7 +162,7 @@ class Pagination extends DB
         return $this->current_page;
     }
 
-    function get_all_data($table)
+    private function get_all_data($table)
     {
         if ($table) {
             $this->data = $this->excuseMysqliQueryAndGetAllData($table);
@@ -170,27 +171,27 @@ class Pagination extends DB
         }
     }
 
-    function get_count($table, $queryExtra = '')
+    private function get_count($table, $queryExtra = '')
     {
         $this->sum_of_all_item = $this->excuseMysqliQueryAndGetCounts($table, $queryExtra);
     }
 
-    function set_max_num_pro_page($num)
+    private function set_max_num_pro_page($num)
     {
         $this->max_num_pro_page = $num;
     }
 
-    function set_page_nums()
+    private function set_page_nums()
     {
         $this->page_num = ceil($this->sum_of_all_item / $this->max_num_pro_page);
     }
 
-    function set_page_name($name)
+    private function set_page_name($name)
     {
         $this->page_name = $name;
     }
 
-    function main()
+    private function main()
     {
         $buttons = "<ul class='pager'>";
         $main_url = $this->main_url;
@@ -228,7 +229,7 @@ class Pagination extends DB
         $this->current_buttons_template = $buttons;
     }
 
-    function gen_template()
+    private function gen_template()
     {
         $temp = '';
 
@@ -271,7 +272,7 @@ class Pagination extends DB
         $this->current_page_template = $temp;
     }
 
-    function gen_buttons()
+    private function gen_buttons()
     {
         $buttons = "<ul class='pager'>";
         $main_url = $this->main_url;
@@ -283,13 +284,12 @@ class Pagination extends DB
                 $buttons .= "<li><a class='btn current_page' href='{$main_url}?{$this->page_name}={$i}' ><b>{$cu_page_num}</b></a></li>";
             } else {
                 $buttons .= "<li><a class='btn' href='{$main_url}?{$this->page_name}={$i}' >{$cu_page_num}</a></li>";
-            }}
+            }
+        }
         $buttons .= "</ul>";
         $this->current_buttons_template = $buttons;
     }
 }
 
 global $connection;
-$post_pagination = new Pagination();
-$post_pagination->setConnection($connection);
-$post_pagination->init(5);
+$post_pagination = new Pagination($connection,5);

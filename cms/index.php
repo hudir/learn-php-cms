@@ -3,7 +3,7 @@
 include 'includes/db.php';
 include 'includes/header.php';
 include 'includes/navigation.php';
-include 'includes/db_class.php';
+require_once 'includes/db_class.php';
 ?>
 
 <!-- Page Content -->
