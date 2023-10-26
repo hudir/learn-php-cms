@@ -126,7 +126,8 @@
 
                         <div class="form-group">
                             <label for="user_password">user password</label>
-                            <input id="user_password" type="password" name="user_password" class="form-control" value="<?php echo $user_password ?>">
+                            <input id="user_password" type="password" name="user_password" class="form-control" value="<?php echo $user_password
+                            ?>" autocomplete="off">
                         </div>
 
                         <div class="form-group">

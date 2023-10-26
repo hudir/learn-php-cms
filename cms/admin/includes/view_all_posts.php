@@ -66,7 +66,7 @@
                                          <td>{$post_status}</td>
                                          <td><img src='../images/$post_image' class='img-responsive' width='100'/></td>
                                          <td>{$post_tags}</td>
-                                         <td>{$post_comments}</td>
+                                         <td><a href='comments.php?post_id={$post_id}'>{$post_comments}</a></td>
                                          <td>{$post_date}</td> 
                                          <td><a href='posts.php?source=edit_post&edit_post_id={$post_id}' class='btn btn-warning'>Edit</a> </td>                                                                
                                          <td><a onClick=\"javascript: return confirm('Delete this post and all comments, Are you sure you want delete?')  \" href='posts.php?delete_post={$post_id}' class='btn btn-danger'>Delete</a></td>  

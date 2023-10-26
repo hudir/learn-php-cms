@@ -15,7 +15,13 @@
     </thead>
     <tbody>
     <?php
-    $query = 'SELECT * FROM comments;';
+
+    if ((isset($_GET['post_id']))) {
+        $p_id = $_GET['post_id'];
+        $query = "SELECT * FROM comments WHERE comment_post_id = $p_id;";
+    } else {
+        $query = 'SELECT * FROM comments;';
+    }
     $select_comments_query = excuseMysqliQueryAndGetData($query);
 
     foreach ($select_comments_query as $row) {
@@ -31,7 +37,6 @@
         $selected_categories = excuseMysqliQueryAndGetData($query_cate);
 
         $post_title = $selected_categories[0]['post_title'];
-//        print_r($selected_categories) ;
 
         echo "<tr>
                                          <td>{$comment_id}</td>
@@ -61,9 +66,11 @@
         if ($_GET['source'] === "unapprove_comment") {
             $the_comment_id = $_GET['comment_id'];
             $query = "UPDATE comments SET comment_status = 'unapproved' WHERE comment_id = {$the_comment_id};";
-        } else if ($_GET['source'] === "approve_comment") {
-            $the_comment_id = $_GET['comment_id'];
-            $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_id = {$the_comment_id};";
+        } else {
+            if ($_GET['source'] === "approve_comment") {
+                $the_comment_id = $_GET['comment_id'];
+                $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_id = {$the_comment_id};";
+            }
         }
         excuseMysqliQuery($query);
         header("Location: comments.php");
