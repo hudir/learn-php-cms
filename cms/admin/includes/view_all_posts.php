@@ -12,7 +12,8 @@
         </div>
 
         <div class="col-xs-4">
-            <input type="submit" name="apply" class="btn btn-success" value="Apply"/>
+            <input type="submit" name="apply" class="btn btn-success" value="Apply" onClick="javascript: return confirm('This operation will effect' +
+             ' all posts you chosen, are you sure about it?') "/>
             <a class="btn btn-primary" href="posts.php?source=add_post">Add New</a>
         </div>
 
@@ -109,6 +110,8 @@
                             break;
                         case 'Delete':
                             excuseMysqliQueryAndDeleteByID('posts', 'post_id', $cBValue_id);
+                            // also delete related comments
+                            excuseMysqliQueryAndDeleteByID('comments', 'comment_post_id', $cBValue_id);
                             break;
                         case 'Clone':
                             global $connection;

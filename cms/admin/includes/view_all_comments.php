@@ -24,21 +24,22 @@
     }
     $select_comments_query = excuseMysqliQueryAndGetData($query);
 
-    foreach ($select_comments_query as $row) {
-        $comment_id = $row['comment_id'];
-        $comment_author = $row['comment_author'];
-        $comment_content = $row['comment_content'];
-        $comment_post_id = $row['comment_post_id'];
-        $comment_email = $row['comment_email'];
-        $comment_status = $row['comment_status'];
-        $comment_date = $row['comment_date'];
+    if(!empty($select_comments_query)) {
+        foreach ($select_comments_query as $row) {
+            $comment_id = $row['comment_id'];
+            $comment_author = $row['comment_author'];
+            $comment_content = $row['comment_content'];
+            $comment_post_id = $row['comment_post_id'];
+            $comment_email = $row['comment_email'];
+            $comment_status = $row['comment_status'];
+            $comment_date = $row['comment_date'];
 
-        $query_cate = "SELECT post_title FROM posts WHERE post_id = $comment_post_id;";
-        $selected_categories = excuseMysqliQueryAndGetData($query_cate);
+            $query_cate = "SELECT post_title FROM posts WHERE post_id = $comment_post_id;";
+            $selected_categories = excuseMysqliQueryAndGetData($query_cate);
 
-        $post_title = $selected_categories[0]['post_title'];
+            $post_title = $selected_categories[0]['post_title'];
 
-        echo "<tr>
+            echo "<tr>
                                          <td>{$comment_id}</td>
                                          <td>{$comment_author}</td>
                                          <td>{$comment_content}</td>
@@ -51,7 +52,10 @@
                                                                                              
                                          <td><a href='comments.php?delete_comment={$comment_id}' class='btn btn-danger'>Delete</a></td>   
                                       </tr>";
+        }
+
     }
+
 
     if (isset($_GET['delete_comment'])) {
         $the_comment_id = $_GET['delete_comment'];

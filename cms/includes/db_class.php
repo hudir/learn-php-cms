@@ -235,20 +235,21 @@ class Pagination extends DB
 
         $current_page = $this->current_page;
         $current_page_name = $this->page_name . $current_page;
-        $current_page_data = $this->processed_data['page_data'][$current_page_name];
+        if (isset($current_page_data[$current_page_name])) {
+            $current_page_data = $this->processed_data['page_data'][$current_page_name];
 
-        foreach ($current_page_data as $row) {
-            $post_id = $row['post_id'];
-            $post_title = $row['post_title'];
-            $post_author = $row['post_author'];
-            $post_date = $row['post_date'];
-            $post_image = $row['post_image'];
-            $post_content = $row['post_content'];
-            $post_content = substr($post_content, 0, 200);
-            $post_status = $row['post_status'];
+            foreach ($current_page_data as $row) {
+                $post_id = $row['post_id'];
+                $post_title = $row['post_title'];
+                $post_author = $row['post_author'];
+                $post_date = $row['post_date'];
+                $post_image = $row['post_image'];
+                $post_content = $row['post_content'];
+                $post_content = substr($post_content, 0, 200);
+                $post_status = $row['post_status'];
 
-            if ($post_status === 'published') {
-                $temp .= "
+                if ($post_status === 'published') {
+                    $temp .= "
 <!-- First Blog Post -->
 <h1 class='d-inline'>
     <a href='post.php?post_id={$post_id}; '>{$post_title }</a>
@@ -267,8 +268,10 @@ class Pagination extends DB
 <a class='btn btn-primary' href='post.php?post_id={$post_id}'>Read More <span
         class='glyphicon glyphicon-chevron-right'></span></a>
 <hr>";
+                }
             }
         }
+
         $this->current_page_template = $temp;
     }
 
@@ -292,4 +295,4 @@ class Pagination extends DB
 }
 
 global $connection;
-$post_pagination = new Pagination($connection,5);
+$post_pagination = new Pagination($connection, 5);
