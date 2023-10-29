@@ -8,7 +8,6 @@ if (isset($_GET['edit_post_id'])) {
 
     while ($row = mysqli_fetch_assoc($select_post_query)) {
         $post_id = $row['post_id'];
-        $post_author = $row['post_author'];
         $post_title = $row['post_title'];
         $post_category = $row['post_category_id'];
         $post_status = $row['post_status'];
@@ -24,7 +23,6 @@ if (isset($_GET['edit_post_id'])) {
     if (isset($_POST['edit_post'])) {
         $post_title = $_POST['post_title'];
         $post_category_id = $_POST['post_category_id'];
-        $post_author = $_POST['author'];
         $post_status = $_POST['post_status'];
         $post_tags = $_POST['post_tags'];
         $post_content = $_POST['post_content'];
@@ -43,7 +41,6 @@ if (isset($_GET['edit_post_id'])) {
         $query = "UPDATE posts SET ";
         $query .= "post_category_id = '{$post_category_id}', ";
         $query .= "post_title = '{$post_title}', ";
-        $query .= "post_author = '{$post_author}', ";
         $query .= "post_date = '{$post_date}', ";
         $query .= "post_image = '{$post_img}', ";
         $query .= "post_content = '{$post_content}', ";
@@ -89,11 +86,6 @@ if (isset($_GET['edit_post_id'])) {
             }
             ?>
         </select>
-    </div>
-
-    <div class='form-group'>
-        <label for='author'>Author</label>
-        <input id='author' type='text' name='author' class='form-control' value='<?php echo $post_author ?>'>
     </div>
 
     <div class='form-group'>

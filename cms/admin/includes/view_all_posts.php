@@ -42,7 +42,11 @@
 
         while ($row = mysqli_fetch_assoc($select_posts_query)) {
             $post_id = $row['post_id'];
-            $post_author = $row['post_author'];
+            $post_author_id = $row['post_author'];
+
+            $get_user_query = "SELECT * FROM users WHERE user_id = {$post_author_id}";
+            $post_author = excuseMysqliQueryAndGetData($get_user_query)[0]['user_name'];
+
             $post_title = $row['post_title'];
             $post_category = $row['post_category_id'];
             $post_status = $row['post_status'];

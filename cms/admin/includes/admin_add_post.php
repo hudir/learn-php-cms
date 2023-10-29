@@ -1,8 +1,9 @@
 <?php
-if(isset($_POST['creat_post'])) {
+
+if(isset($_POST['creat_post']) && $_SESSION['user_id']) {
     $post_title = $_POST['post_title'];
     $post_category_id = $_POST['post_category_id'];
-    $post_author = $_POST['author'];
+    $post_author = $_SESSION['user_id'];
     $post_status = $_POST['post_status'];
     $post_tags = $_POST['post_tags'];
     $post_content = $_POST['post_content'];
@@ -53,11 +54,6 @@ if(isset($_POST['creat_post'])) {
             }
             ?>
         </select>
-    </div>
-
-    <div class="form-group">
-        <label for="author">Author</label>
-        <input id="author" type="text" name="author" class="form-control">
     </div>
 
     <div class='form-group'>
