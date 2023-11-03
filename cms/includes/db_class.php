@@ -121,6 +121,8 @@ class Pagination extends DB
 
     private $data = null;
 
+    private $all_users = null;
+
     private $current_page = null;
 
     private $processed_data = null;
@@ -135,12 +137,20 @@ class Pagination extends DB
         $this->gen_buttons();
     }
 
-    function __construct($db, $max_num_pro_page = 3, $table_name = 'posts', $main_url = 'index.php', $page_name = 'page', $start_page = 0)
-    {
+    function __construct(
+        $db,
+        $data_limit = '',
+        $max_num_pro_page = 5,
+        $table_name = 'posts',
+        $main_url = 'index.php',
+        $page_name = 'page',
+        $start_page
+        = 0
+    ) {
         $this->setConnection($db);
         $this->table_name = $table_name;
         $this->get_count($table_name);
-        $this->get_all_data($table_name);
+        $this->get_all_data($table_name, $data_limit);
         $this->set_max_num_pro_page($max_num_pro_page);
         $this->set_page_nums();
         $this->set_page_name($page_name);
@@ -162,12 +172,23 @@ class Pagination extends DB
         return $this->current_page;
     }
 
-    private function get_all_data($table)
+    private function get_all_data($table, $data_limit = '')
     {
+        if ($data_limit) {
+            $table = $table . $data_limit;
+        }
         if ($table) {
             $this->data = $this->excuseMysqliQueryAndGetAllData($table);
         } else {
             $this->data = $this->excuseMysqliQueryAndGetAllData($this->table_name);
+        }
+
+        // Get users map
+        $allUser = $this->excuseMysqliQueryAndGetAllData('users');
+        foreach ($allUser as $userObj) {
+            $userId = $userObj['user_id'];
+            $userName = $userObj['user_name'];
+            $this->all_users[$userId] = $userName;
         }
     }
 
@@ -229,19 +250,21 @@ class Pagination extends DB
         $this->current_buttons_template = $buttons;
     }
 
-    private function gen_template()
+    public function gen_template()
     {
         $temp = '';
 
         $current_page = $this->current_page;
         $current_page_name = $this->page_name . $current_page;
-        if (isset($current_page_data[$current_page_name])) {
+
+        if (isset($this->processed_data['page_data'][$current_page_name])) {
             $current_page_data = $this->processed_data['page_data'][$current_page_name];
 
             foreach ($current_page_data as $row) {
                 $post_id = $row['post_id'];
                 $post_title = $row['post_title'];
-                $post_author = $row['post_author'];
+                $post_author_id = $row['post_author'];
+                $post_author = $this->all_users[$post_author_id];
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
                 $post_content = $row['post_content'];
@@ -256,7 +279,7 @@ class Pagination extends DB
 </h1>
 <p class='lead'>
     by
-    <a href='author_post.php?author= {$post_author}&post_id={$post_id }'>{$post_author}</a>
+    <a href='author_post.php?author= {$post_author_id}&post_id={$post_id }'>{$post_author}</a>
 </p>
 <p><span class='glyphicon glyphicon-time'></span> Posted on {$post_date }</p>
 <hr>
@@ -294,5 +317,3 @@ class Pagination extends DB
     }
 }
 
-global $connection;
-$post_pagination = new Pagination($connection, 5);

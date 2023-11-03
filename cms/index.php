@@ -12,10 +12,9 @@ require_once 'includes/db_class.php';
         <!-- Blog Entries Column -->
         <div class="col-md-8">
             <?php
-
-            global $post_pagination;
+            global $connection;
+            $post_pagination = new Pagination($connection);
             $post_pagination->run();
-
             echo $post_pagination->current_page_template;
 
             ?>
@@ -30,9 +29,8 @@ require_once 'includes/db_class.php';
     <?php
     echo $post_pagination->current_buttons_template;
 
-    include 'includes/footer.php'
     ?>
-
-    <?php
-
-    ?>
+</div>
+<?php
+include 'includes/footer.php'
+?>
