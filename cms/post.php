@@ -12,7 +12,7 @@ include 'includes/navigation.php';
         <div class="col-md-8">
             <?php
             if (isset($_GET['post_id'])) {
-                $p_id = ($_GET['post_id']);
+                $p_id = (int)($_GET['post_id']);
 
                 $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = {$p_id}";
                 excuseMysqliQuery($view_query);
@@ -22,7 +22,11 @@ include 'includes/navigation.php';
 
                 foreach ($select_posts_query as $row) {
                     $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_author_id = $row['post_author'];
+
+                    $get_user_query = "SELECT * FROM users WHERE user_id = {$post_author_id}";
+                    $post_author = excuseMysqliQueryAndGetData($get_user_query)[0]['user_name'];
+
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
                     $post_content = $row['post_content'];
@@ -103,7 +107,8 @@ include 'includes/navigation.php';
 
             <?php
 
-            $query = "SELECT * FROM comments WHERE comment_post_id = {$p_id} AND comment_status = 'approved' ORDER BY comment_id DESC;";
+
+            $query = "SELECT * FROM comments WHERE comment_post_id = {$p_id} AND comment_status = 'approved' ORDER BY comment_id DESC";
             $comment_data = excuseMysqliQueryAndGetData($query);
 
             if ($comment_data) {

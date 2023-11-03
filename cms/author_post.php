@@ -20,7 +20,12 @@ require_once 'includes/db_class.php';
 
                 foreach ($select_posts_query as $row) {
                     $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_author_id = $row['post_author'];
+
+                    $get_user_query = "SELECT * FROM users WHERE user_id = {$post_author_id}";
+                    $post_author = excuseMysqliQueryAndGetData($get_user_query)[0]['user_name'];
+
+
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
                     $post_content = $row['post_content'];

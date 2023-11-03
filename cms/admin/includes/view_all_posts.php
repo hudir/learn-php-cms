@@ -36,36 +36,37 @@
         </thead>
         <tbody>
         <?php
-        global $connection;
-        $query = 'SELECT * FROM posts ORDER BY post_id DESC;';
-        $select_posts_query = mysqli_query($connection, $query);
+        function showPostBaseOnData($query)
+        {
+            global $connection;
+            $select_posts_query = mysqli_query($connection, $query);
 
-        while ($row = mysqli_fetch_assoc($select_posts_query)) {
-            $post_id = $row['post_id'];
-            $post_author_id = $row['post_author'];
+            while ($row = mysqli_fetch_assoc($select_posts_query)) {
+                $post_id = $row['post_id'];
+                $post_author_id = $row['post_author'];
 
-            $get_user_query = "SELECT * FROM users WHERE user_id = {$post_author_id}";
-            $post_author = excuseMysqliQueryAndGetData($get_user_query)[0]['user_name'];
+                $get_user_query = "SELECT * FROM users WHERE user_id = {$post_author_id}";
+                $post_author = excuseMysqliQueryAndGetData($get_user_query)[0]['user_name'];
 
-            $post_title = $row['post_title'];
-            $post_category = $row['post_category_id'];
-            $post_status = $row['post_status'];
-            $post_image = $row['post_image'];
-            $post_tags = $row['post_tags'];
-            $post_comments = $row['post_comment_count'];
-            $post_date = $row['post_date'];
-            $post_views_count = $row['post_views_count'];
+                $post_title = $row['post_title'];
+                $post_category = $row['post_category_id'];
+                $post_status = $row['post_status'];
+                $post_image = $row['post_image'];
+                $post_tags = $row['post_tags'];
+                $post_comments = $row['post_comment_count'];
+                $post_date = $row['post_date'];
+                $post_views_count = $row['post_views_count'];
 
-            $query_cate = "SELECT cat_id, cat_title FROM categories WHERE cat_id = {$post_category};";
-            $selected_categories = mysqli_query($connection, $query_cate);
-            confirmQuery($selected_categories);
-            while ($row = mysqli_fetch_assoc($selected_categories)) {
-                $cat_title = $row['cat_title'];
-                echo "<tr>
+                $query_cate = "SELECT cat_id, cat_title FROM categories WHERE cat_id = {$post_category};";
+                $selected_categories = mysqli_query($connection, $query_cate);
+                confirmQuery($selected_categories);
+                while ($row = mysqli_fetch_assoc($selected_categories)) {
+                    $cat_title = $row['cat_title'];
+                    echo "<tr>
                                          <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='{$post_id}'/></td>
                                          
                                          <td>{$post_id}</td>
-                                         <td>{$post_author}</td>
+                                         <td><a href='posts.php?post_author_id={$post_author_id}'>{$post_author}</a></td>
                                          <td><a href='../post.php?post_id={$post_id}'>{$post_title}</a></td>
                                          <td>{$cat_title}</td>
                                          <td>{$post_status}</td>
@@ -80,8 +81,17 @@
                                          <a onClick=\"javascript: return confirm('Reset this post view count, Are you sure you want reset it to 0?')  \" href='posts.php?reset_view_count={$post_id}' class=''>Reset</a>
                                          </td> 
                                       </tr>";
+                }
             }
         }
+
+        if (isset($_GET['post_author_id'])) {
+            $post_author_id = (int)$_GET['post_author_id'];
+            $query = "SELECT * FROM posts WHERE post_author = {$post_author_id} ORDER BY post_id DESC;";
+        } else {
+            $query = 'SELECT * FROM posts ORDER BY post_id DESC;';
+        }
+        showPostBaseOnData($query);
         if (isset($_GET['reset_view_count'])) {
             $the_post_id = $_GET['reset_view_count'];
 
