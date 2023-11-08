@@ -48,15 +48,15 @@
                                          <td><a href='users.php?source=edit_user&id={$user_id}' class='btn btn-warning'>Ediit</a></td>
                                           <td><a href='users.php?source=admin&id={$user_id}' class='btn btn-primary'>Admin</a></td>
                                            <td><a href='users.php?source=subscriber&id={$user_id}' class='btn btn-primary'>Subscriber</a></td>
-                                         <td><a href='users.php?delete_user={$user_id}' class='btn btn-danger'>Delete</a></td>
+                                         <td><a onClick=\"javascript: return confirm('Delete this user: {$user_name},  will also delete all post from this user, Are you sure you want delete?')  \" href='users.php?delete_user={$user_id}' class='btn btn-danger'>Delete</a></td>
                                          </tr>";
     }
 
     if (isset($_GET['delete_user'])) {
         $the_user_id = $_GET['delete_user'];
 
-        $query = "DELETE FROM users WHERE user_id = {$the_user_id};";
-        excuseMysqliQuery($query);
+        excuseMysqliQueryAndDeleteByID('users', 'user_id', $the_user_id);
+        excuseMysqliQueryAndDeleteByID('posts', 'post_author', $the_user_id);
 
         header("Location: users.php");
     }

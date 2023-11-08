@@ -14,7 +14,7 @@ require_once 'includes/db_class.php';
                 <?php
                 if (isset($_GET['cat_id'])) {
                     global $connection;
-                    $cat_id = $_GET['cat_id'];
+                    $cat_id = escape($_GET['cat_id']);
 
                     $categroy_pagination = new Pagination($connection, " WHERE post_category_id = {$cat_id}", 9999);
 

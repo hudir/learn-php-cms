@@ -11,11 +11,11 @@ if (isset($_POST['Register'])) {
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];
 
-    $user_name = mysqli_real_escape_string($connection, $user_name);
-    $user_email = mysqli_real_escape_string($connection, $user_email);
-    $user_password = mysqli_real_escape_string($connection, $user_password);
-    $user_firstname = mysqli_real_escape_string($connection, $user_firstname);
-    $user_lastname = mysqli_real_escape_string($connection, $user_lastname);
+    $user_name = escape($user_name);
+    $user_email = escape($user_email);
+    $user_password = escape($user_password);
+    $user_firstname = escape($user_firstname);
+    $user_lastname = escape($user_lastname);
 
     if(!empty($user_name) && !empty($user_email) && !empty($user_password)) {
         $query = "SELECT randSalt From users;";

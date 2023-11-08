@@ -1,5 +1,7 @@
 <?php
 
+require_once 'session.php';
+
 $db['db_host'] = 'localhost';
 $db['db_user'] = 'root';
 $db['db_pass'] = '';
@@ -73,11 +75,15 @@ function excuseMysqliQueryAndUpdateByID($table, $column, $newValue, $id_column, 
 
 function excuseMysqliQueryAndDeleteByID($table, $id_column, $id)
 {
-    global $connection;
-    $query = "DELETE FROM {$table} WHERE {$id_column} = {$id} ;";
-    mysqli_query($connection, $query);
-    if (!$query) {
-        die('QUERY FAILED' . mysqli_error($connection));
+    if (checkAdmin()) {
+        global $connection;
+        $query = "DELETE FROM {$table} WHERE {$id_column} = {$id} ;";
+        mysqli_query($connection, $query);
+        if (!$query) {
+            die('QUERY FAILED' . mysqli_error($connection));
+        }
+    } else {
+        blockNoneAdminUser();
     }
 }
 
@@ -85,4 +91,9 @@ function getNewInsertId()
 {
     global $connection;
     return mysqli_insert_id($connection);
+}
+
+function escape($string) {
+    global $connection;
+    return mysqli_real_escape_string($connection, trim($string));
 }

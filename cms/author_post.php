@@ -13,7 +13,7 @@ require_once 'includes/db_class.php';
         <div class="col-md-8">
             <?php
             if (isset($_GET['post_id'])) {
-                $p_id = ($_GET['post_id']);
+                $p_id = escape($_GET['post_id']);
 
                 $query = "SELECT * FROM posts WHERE post_id = {$p_id};";
                 $select_posts_query = excuseMysqliQueryAndGetData($query);
@@ -57,10 +57,10 @@ require_once 'includes/db_class.php';
             <!-- Blog Comments -->
             <?php
             if (isset($_POST['create_comment'])) {
-                $comment_post_id = $p_id;
-                $comment_author = $_POST['comment_author'];
-                $comment_email = $_POST['comment_email'];
-                $comment_content = $_POST['comment_content'];
+                $comment_post_id = escape($p_id);
+                $comment_author = escape($_POST['comment_author']);
+                $comment_email = escape($_POST['comment_email']);
+                $comment_content = escape($_POST['comment_content']);
 
                 if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
                     $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ($comment_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now())";
@@ -134,7 +134,7 @@ require_once 'includes/db_class.php';
             if (isset($_GET['author'])) {
 
                 global $connection;
-                $author_id = $_GET['author'];
+                $author_id = escape($_GET['author']);
 
                 $author_pagination = new Pagination($connection, " WHERE post_author = {$author_id}", 9999);
 

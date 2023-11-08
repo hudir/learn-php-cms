@@ -12,7 +12,7 @@ include 'includes/navigation.php';
         <div class="col-md-8">
             <?php
             if (isset($_GET['post_id'])) {
-                $p_id = (int)($_GET['post_id']);
+                $p_id = (int)escape($_GET['post_id']);
 
                 $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = {$p_id}";
                 excuseMysqliQuery($view_query);
@@ -61,10 +61,10 @@ include 'includes/navigation.php';
             <!-- Blog Comments -->
             <?php
             if (isset($_POST['create_comment'])) {
-                $comment_post_id = $p_id;
-                $comment_author = $_POST['comment_author'];
-                $comment_email = $_POST['comment_email'];
-                $comment_content = $_POST['comment_content'];
+                $comment_post_id = escape($p_id);
+                $comment_author = escape($_POST['comment_author']);
+                $comment_email = escape($_POST['comment_email']);
+                $comment_content = escape($_POST['comment_content']);
 
                 if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
                     $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ($comment_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now())";

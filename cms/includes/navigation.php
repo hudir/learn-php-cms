@@ -18,7 +18,7 @@
                 $query = 'SELECT * FROM categories;';
                 $select_all_categories_query = excuseMysqliQueryAndGetData($query);
                 foreach ($select_all_categories_query as $row) {
-                    echo "<li><a href='#'>{$row['cat_title']}</a></li>";
+                    echo "<li><a href='category.php?cat_id={$row['cat_id']}'>{$row['cat_title']}</a></li>";
                 }
 
                 ?>
