@@ -1,3 +1,10 @@
+<?php include 'delete_modal_class.php';
+$del_single_post = new Delete_modal("posts.php?delete_post=", "Delete this post and all comments, Are you sure you want delete?", 'del_single_post');
+
+
+?>
+<!--<td><a onClick=\"javascript: return confirm('Delete this post and all comments, Are you sure you want delete?')  \" href='posts.php?delete_post={$post_id}' class='btn btn-danger'>Delete</a></td>-->
+
 <form action="" method="post">
     <table class="table  table-hover table-bordered">
 
@@ -36,6 +43,7 @@
         </thead>
         <tbody>
         <?php
+        $del_single_post = new Delete_modal("posts.php?delete_post=", "Delete this post and all comments, Are you sure you want delete?", 'del_single_post');
         function showPostBaseOnData($query)
         {
             global $connection;
@@ -62,6 +70,10 @@
                 confirmQuery($selected_categories);
                 while ($row = mysqli_fetch_assoc($selected_categories)) {
                     $cat_title = $row['cat_title'];
+
+global $del_single_post;
+                    $delete_btn =  $del_single_post->get_delete_modal_btn($post_id);
+
                     echo "<tr>
                                          <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='{$post_id}'/></td>
                                          
@@ -75,7 +87,7 @@
                                          <td><a href='comments.php?post_id={$post_id}'>{$post_comments}</a></td>
                                          <td>{$post_date}</td> 
                                          <td><a href='posts.php?source=edit_post&edit_post_id={$post_id}' class='btn btn-warning'>Edit</a> </td>                                                                
-                                         <td><a onClick=\"javascript: return confirm('Delete this post and all comments, Are you sure you want delete?')  \" href='posts.php?delete_post={$post_id}' class='btn btn-danger'>Delete</a></td>  
+                                         <td>{$delete_btn}</td>  
                                          <td>{$post_views_count}
                                          <br/>
                                          <a onClick=\"javascript: return confirm('Reset this post view count, Are you sure you want reset it to 0?')  \" href='posts.php?reset_view_count={$post_id}' class=''>Reset</a>
