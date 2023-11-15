@@ -13,7 +13,8 @@ require_once 'includes/db_class.php';
         <div class="col-md-8">
             <?php
             global $connection;
-            $post_pagination = new Pagination($connection);
+            $limit = " WHERE post_status = 'published'";
+            $post_pagination = new Pagination($connection, $limit);
             $post_pagination->run();
             echo $post_pagination->current_page_template;
 

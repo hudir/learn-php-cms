@@ -149,7 +149,7 @@ class Pagination extends DB
     ) {
         $this->setConnection($db);
         $this->table_name = $table_name;
-        $this->get_count($table_name);
+        $this->get_count($table_name, $data_limit);
         $this->get_all_data($table_name, $data_limit);
         $this->set_max_num_pro_page($max_num_pro_page);
         $this->set_page_nums();
