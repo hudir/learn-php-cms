@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Hudir's Blog</a>
+            <a class="navbar-brand" href="index">Hudir's Blog</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse d-flex justify-content-between" id="bs-example-navbar-collapse-1">
@@ -47,7 +47,7 @@
                     $activeClass = 'active';
                    }
                     echo " <li class='p-5 {$activeClass}'>
-                    <a href='./registration.php'>Registration</a>
+                    <a href='./registration'>Registration</a>
                 </li>";
                 } else {
                     echo " <li class='p-5'>
@@ -66,7 +66,7 @@
                     $activeClass = 'active';
                 }
                 echo "<li class='{$activeClass}'>
-                    <a href='contact.php'>Contact</a>
+                    <a href='contact'>Contact</a>
                 </li>";
                 ?>
 

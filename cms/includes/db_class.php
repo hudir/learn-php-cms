@@ -270,7 +270,8 @@ class Pagination extends DB
                 $post_content = $row['post_content'];
                 $post_content = substr($post_content, 0, 200);
                 $post_status = $row['post_status'];
-
+                $imgURL = 'images/' .$post_image;
+                $imgURL = fixImageURL($imgURL);
                 if ($post_status === 'published') {
                     $temp .= "
 <!-- First Blog Post -->
@@ -284,7 +285,7 @@ class Pagination extends DB
 <p><span class='glyphicon glyphicon-time'></span> Posted on {$post_date }</p>
 <hr>
 <a href='post.php?post_id={$post_id}'>
-    <img class='img-responsive' src='images/{$post_image}' alt=''>
+    <img class='img-responsive' src='{$imgURL}' alt=''>
 </a>
 <hr>
 <p>{$post_content}</p>

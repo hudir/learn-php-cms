@@ -1,9 +1,7 @@
 <?php include 'delete_modal_class.php';
 $del_single_post = new Delete_modal("posts.php?delete_post=", "Delete this post and all comments, Are you sure you want delete?", 'del_single_post');
-
-
 ?>
-<!--<td><a onClick=\"javascript: return confirm('Delete this post and all comments, Are you sure you want delete?')  \" href='posts.php?delete_post={$post_id}' class='btn btn-danger'>Delete</a></td>-->
+
 
 <form action="" method="post">
     <table class="table  table-hover table-bordered">
@@ -43,7 +41,11 @@ $del_single_post = new Delete_modal("posts.php?delete_post=", "Delete this post 
         </thead>
         <tbody>
         <?php
-        $del_single_post = new Delete_modal("posts.php?delete_post=", "Delete this post and all comments, Are you sure you want delete?", 'del_single_post');
+        $del_single_post = new Delete_modal(
+            "posts.php?delete_post=",
+            "Delete this post and all comments, Are you sure you want delete?",
+            'del_single_post'
+        );
         function showPostBaseOnData($query)
         {
             global $connection;
@@ -71,8 +73,8 @@ $del_single_post = new Delete_modal("posts.php?delete_post=", "Delete this post 
                 while ($row = mysqli_fetch_assoc($selected_categories)) {
                     $cat_title = $row['cat_title'];
 
-global $del_single_post;
-                    $delete_btn =  $del_single_post->get_delete_modal_btn($post_id);
+                    global $del_single_post;
+                    $delete_btn = $del_single_post->get_delete_modal_btn($post_id);
 
                     echo "<tr>
                                          <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='{$post_id}'/></td>
