@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index">Hudir's Blog</a>
+            <a class="navbar-brand" href="/demo/cms/index">Hudir's Blog</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse d-flex justify-content-between" id="bs-example-navbar-collapse-1">
@@ -25,7 +25,7 @@
                     if ($cat_id == $current_cat_id) {
                         $activeClass = 'active';
                     }
-                    echo "<li class='{$activeClass}'><a href='category.php?cat_id={$row['cat_id']}'>{$row['cat_title']}</a></li>";
+                    echo "<li class='{$activeClass}'><a href='/demo/cms/category/{$row['cat_id']}'>{$row['cat_title']}</a></li>";
                 }
 
                 ?>
@@ -47,7 +47,7 @@
                     $activeClass = 'active';
                    }
                     echo " <li class='p-5 {$activeClass}'>
-                    <a href='./registration'>Registration</a>
+                    <a href='/demo/cms/registration'>Registration</a>
                 </li>";
                 } else {
                     echo " <li class='p-5'>
@@ -66,7 +66,7 @@
                     $activeClass = 'active';
                 }
                 echo "<li class='{$activeClass}'>
-                    <a href='contact'>Contact</a>
+                    <a href='/demo/cms/contact'>Contact</a>
                 </li>";
                 ?>
 

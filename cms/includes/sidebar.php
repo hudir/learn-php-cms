@@ -55,7 +55,7 @@
                     $select_categories_query_sidebar = mysqli_query($connection, $query);
 
                     while ($row = mysqli_fetch_assoc($select_categories_query_sidebar)) {
-                        echo "<li><a href='category.php?cat_id={$row['cat_id']}'>{$row['cat_title']}</a></li>";
+                        echo "<li><a href='/demo/cms/category/{$row['cat_id']}'>{$row['cat_title']}</a></li>";
                     }
                     ?>
                 </ul>

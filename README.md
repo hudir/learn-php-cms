@@ -10,5 +10,5 @@ https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-ori
 - check empty data won't show error msg - done
 
 - change delete/edit from get method to post - will not apply
-- Sec 38 pretty urls - done with index/register/contact page and fix css,js,image urls, rewrite rule will break those urls
+- Sec 38 pretty urls - done with post and category, index/register/contact page and fix css,js,image urls, rewrite rule will break those urls
 - 

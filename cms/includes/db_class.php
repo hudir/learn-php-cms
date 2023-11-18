@@ -276,7 +276,7 @@ class Pagination extends DB
                     $temp .= "
 <!-- First Blog Post -->
 <h1 class='d-inline'>
-    <a href='post.php?post_id={$post_id}; '>{$post_title }</a>
+    <a href='post/{$post_id} '>{$post_title }</a>
 </h1>
 <p class='lead'>
     by
