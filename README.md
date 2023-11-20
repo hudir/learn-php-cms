@@ -11,4 +11,5 @@ https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-ori
 
 - change delete/edit from get method to post - will not apply
 - Sec 38 pretty urls - done with post and category, index/register/contact page and fix css,js,image urls, rewrite rule will break those urls
-- 
+
+composer require phpmailer/phpmailer
