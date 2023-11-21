@@ -4,9 +4,18 @@
     <!-- Blog Search Well -->
     <div class="well">
         <h4>Blog Search</h4>
-        <form action="search.php" method="post">
+        <form action="/demo/cms/search.php" method="post">
             <div class="input-group">
-                <input name="search" type="text" class="form-control">
+                <input
+                    name="search"
+                    type="text"
+                    class="form-control"
+                    <?php
+                    if(isset($_SESSION['last_search'])){
+                        echo "placeholder='{$_SESSION['last_search']}'";
+                    }
+                    ?>
+                >
                 <span class="input-group-btn">
                             <button type="submit" name="submit" class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-search"></span>

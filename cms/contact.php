@@ -30,6 +30,7 @@ if (isset($_POST['SendMsg'])) {
             $mail->SMTPSecure = 'tls';
             $mail->SMTPAuth = true;
             $mail->isHTML(true);
+//            $mail->CharSet('UTF-8');
 
             //Recipients
             $mail->setFrom("info@phpcms.com", 'Hudir');

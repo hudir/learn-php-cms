@@ -2,6 +2,8 @@
 
 https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-oriented/
 
+# deps: composer require phpmailer/phpmailer
+
 # Todos
 
 - add active to navi links - done
@@ -12,4 +14,10 @@ https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-ori
 - change delete/edit from get method to post - will not apply
 - Sec 38 pretty urls - done with post and category, index/register/contact page and fix css,js,image urls, rewrite rule will break those urls
 
-composer require phpmailer/phpmailer
+- fix search function - done, url error
+- add title, post content search, add all data in arr - done
+- filter out repeated post - done
+- fix post format - done
+- fix author format - done
+- add high light to replace matched content - done
+- add last search, to save the last time search value as placeholder? - done

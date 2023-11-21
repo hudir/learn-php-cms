@@ -1,5 +1,7 @@
 {
+    "name": "hudir/cms/blog",
     "require": {
         "phpmailer/phpmailer": "^6.8"
-    }
+    },
+    "authors": "Zhuo Yang"
 }
