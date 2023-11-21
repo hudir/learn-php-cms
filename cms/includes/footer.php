@@ -12,6 +12,12 @@
 </div>
 <!-- /.container -->
 
+<script>
+    function changeLang(e){
+        document.getElementById('langForm').submit();
+    }
+</script>
+
 <!-- jQuery -->
 <script src="/demo/cms/js/jquery.js"></script>
 

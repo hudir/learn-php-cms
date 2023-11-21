@@ -11,7 +11,7 @@
                     type="text"
                     class="form-control"
                     <?php
-                    if(isset($_SESSION['last_search'])){
+                    if (isset($_SESSION['last_search'])) {
                         echo "placeholder='{$_SESSION['last_search']}'";
                     }
                     ?>
@@ -51,7 +51,6 @@
 
     ?>
 
-
     <!-- Blog Categories Well -->
     <div class="well">
         <h4>Blog Categories</h4>
@@ -87,6 +86,5 @@
         <!-- /.row -->
     </div>
 
-    <?php include 'widget.php';
-    ?>
+    <?php include 'widget.php'; ?>
 </div>

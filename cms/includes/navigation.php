@@ -31,14 +31,27 @@
                 ?>
             </ul>
 
-            <ul class="nav navbar-nav ">
+            <form class="navbar-form navbar-right" id="langForm"
+                  role="form" method="get">
+                <div class="form-group">
+                    <select name="lang" class="form-control" onchange="changeLang(event)">
+                        <option value="en"
+                            <?php if($_SESSION['lang'] == 'en') { echo "selected='selected'";} ?>
+                        >English</option>
+                        <option value="de" <?php if($_SESSION['lang'] == 'de') { echo "selected='selected'";} ?>>Deutsche</option>
+                        <option value="cn" <?php if($_SESSION['lang']  == 'cn') { echo "selected='selected'";} ?>>简体中文</option>
+                    </select>
+                </div>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
                 <?php
                 $pageName = basename($_SERVER['PHP_SELF']);
 
 
                 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
                     echo "<li class='p-5'>
-                              <a href='./admin/index.php'>Admin</a>
+                              <a href='/demo/cms/admin/index.php'>Admin</a>
                           </li>";
                 }
                 if (!isset($_SESSION['user_email'])) {
@@ -57,7 +70,7 @@
 
                 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin' && isset($_GET['post_id'])) {
                     echo " <li>
-                    <a class='text-warning' href='admin/posts.php?source=edit_post&edit_post_id={$_GET['post_id']}'>Edit Post</a>
+                    <a class='text-warning' href='/demo/cms/admin/posts.php?source=edit_post&edit_post_id={$_GET['post_id']}'>Edit Post</a>
                         </li>";
                 }
 
@@ -69,11 +82,13 @@
                     <a href='/demo/cms/contact'>Contact</a>
                 </li>";
                 ?>
-
-
             </ul>
+
+
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
 </nav>
+

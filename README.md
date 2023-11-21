@@ -21,3 +21,5 @@ https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-ori
 - fix author format - done
 - add high light to replace matched content - done
 - add last search, to save the last time search value as placeholder? - done
+
+- add multi languages - done now works in registration page

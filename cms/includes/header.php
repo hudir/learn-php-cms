@@ -4,6 +4,15 @@ include "helper_function.php";
 session_start();
 ?>
 
+<?php
+if(isset($_GET['lang']) && $_GET['lang'] !== $_SESSION['lang']) {
+    $_SESSION['lang'] = $_GET['lang'];
+} elseif (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'en';
+}
+include "includes/languages/" . $_SESSION['lang'] . ".php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
