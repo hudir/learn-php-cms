@@ -10,11 +10,7 @@
                     name="search"
                     type="text"
                     class="form-control"
-                    <?php
-                    if (isset($_SESSION['last_search'])) {
-                        echo "placeholder='{$_SESSION['last_search']}'";
-                    }
-                    ?>
+                    value="<?= $_SESSION['last_search'] ?? ''?>"
                 >
                 <span class="input-group-btn">
                             <button type="submit" name="submit" class="btn btn-default" type="button">

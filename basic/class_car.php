@@ -40,7 +40,7 @@ echo $audi->wheels = 16;
 echo $audi->doors = 2;
 
 class plane extends Car {
-    var $hood = "over write the parent's vairable";
+    var $hood = "over write the parent's variable";
 
 }
 

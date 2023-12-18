@@ -20,8 +20,14 @@ https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-ori
 - fix post format - done
 - fix author format - done
 - add high light to replace matched content - done
-- add last search, to save the last time search value as placeholder? - done
+- add last search, to save the last time search value as placeholder? - done : change to set old search as value 
 
 - add multi languages - done now works in registration page
 
 # start https://www.wa4e.com/
+
+### they are the same!
+<?php echo $vari_exp ?>
+<?= $vari_exp ?>
+
+for data coming from user: htmlentities()
